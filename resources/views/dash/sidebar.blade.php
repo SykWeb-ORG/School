@@ -55,12 +55,11 @@
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-building"></i>
-                    <span class="nav-text">Departments</span>
+                    <span class="nav-text"></span>
+                    Departments
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="all-departments.html">All Departments</a></li>
-                    <li><a href="add-departments.html">Add Departments</a></li>
-                    <li><a href="edit-departments.html">Edit Departments</a></li>
+                    <li><a href="{{ route('alldepartement') }}">All Departments</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">

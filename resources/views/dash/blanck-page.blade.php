@@ -11,5 +11,6 @@
             @include('dash.footer')
         </div>
         @include('dash.scripts')
+        @yield('scripts')
     </body>
 </html>
