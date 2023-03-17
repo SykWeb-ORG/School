@@ -39,3 +39,4 @@ Route::get('/edit_departement/{id}',[DepartmentController::class,'edit']);
 Route::put('/update_departement',[DepartmentController::class,'update']);
 Route::delete('/delete_departement',[DepartmentController::class,'destroy']);
 //End departement controller
+//testsstt git hub permission
