@@ -65,3 +65,31 @@ function uploading(endUrl, dataObject, fctOutput) {
             fctOutput(err.response.data);
         });
 }
+function callSwal(fctOutput) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-danger',
+            cancelButton: 'btn btn-success'
+        },
+        buttonsStyling: false
+    });
+    swalWithBootstrapButtons.fire({
+        title: 'vous êtes sûr?',
+        text: "Vous ne pourrez pas revenir en arrière !!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Oui, Supprimer!',
+        cancelButtonText: 'No, Annuler!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            deleteDriver();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire(
+                'Annulé',
+                'Cette opération est annulée :)',
+                'erreur'
+            );
+        }
+    });
+}
