@@ -16,7 +16,12 @@ class DriverController extends Controller
      */
     public function index()
     {
-        //
+        $drivers = Driver::all();
+        return response()->json(
+            [
+                'drivers' => $drivers,
+            ]
+        );
     }
 
     /**
@@ -93,7 +98,24 @@ class DriverController extends Controller
      */
     public function update(Request $request, Driver $driver)
     {
-        //
+        // TODO: edit person record first...
+        if ($driver->employee->update($request->only(['salaire', 'date_embauche']))) {
+            $result = $driver;
+            $status = 200;
+            $msg = __('success');
+        } else {
+            $result = null;
+            $status = 500;
+            $msg = __('failure');
+        }
+        return response()->json(
+            [
+                'result' => $result,
+                'status' => $status,
+                'msg' => $msg,
+            ],
+            $status
+        );
     }
 
     /**
@@ -104,6 +126,24 @@ class DriverController extends Controller
      */
     public function destroy(Driver $driver)
     {
-        //
+        // get & delete person record ...
+        $employee = $driver->employee;
+        if ($employee->delete()) {
+            $result = $driver;
+            $status = 200;
+            $msg = __('success');
+        } else {
+            $result = null;
+            $status = 500;
+            $msg = __('failure');
+        }
+        return response()->json(
+            [
+                'result' => $result,
+                'status' => $status,
+                'msg' => $msg,
+            ],
+            $status
+        );
     }
 }

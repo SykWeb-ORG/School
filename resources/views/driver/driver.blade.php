@@ -25,7 +25,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">Tous les chauffeurs</h4>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-primary btn-show-modal-add" data-bs-toggle="modal"
                                         data-bs-target="#addnew" data-bs-whatever="@mdo">+ Ajouter chauffeur</button>
                                 </div>
                                 <div class="card-body">
@@ -38,13 +38,15 @@
                                         <table id="example3" class="display" style="min-width: 845px">
                                             <thead>
                                                 <tr>
+                                                    <th>N°</th>
                                                     <th>Nom complet</th>
                                                     <th>CIN</th>
+                                                    <th>Sexe</th>
                                                     <th>Tel</th>
-                                                    <th>Action</th>
+                                                    <th colspan="2">Action</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="tbl_driver">
                                                 {{-- <tr>
                                                     <td>
                                                         <button type="button" data-chauffeur-id="{{ $chauffeur->id }}" class="btn btn-sm btnedit btn-success btn-edit"
@@ -83,62 +85,64 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ajouter chauffeur</h5>
+                    <h5 class="modal-title" id="modal-title">Ajouter chauffeur</h5>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="nom" class="col-form-label">Nom </label>
-                        <input type="text" id="nom" class="form-control" name="nom" min="1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="prenom" class="col-form-label">Prénom </label>
-                        <input type="text" id="prenom" class="form-control" name="prenom" min="1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="cin" class="col-form-label">CIN </label>
-                        <input type="text" id="cin" class="form-control" name="cin" min="1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="date-naissance" class="col-form-label">Date naissance </label>
-                        <input type="date" id="date-naissance" class="form-control" name="date-naissance" min="1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="adress" class="col-form-label">Adresse </label>
-                        <input type="text" id="adress" class="form-control" name="adress" min="1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="tel" class="col-form-label">Tel </label>
-                        <input type="text" id="tel" class="form-control" name="tel" min="1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="gender" class="col-form-label">Sexe </label>
-                        <select class="form-control" id="gender" name="gender">
-                            <option value="" hidden selected>Sexe</option>
-                            <option value="Male">Homme</option>
-                            <option value="Female">Femme</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="description" class="col-form-label">Description </label>
-                        <textarea class="form-control" id="description" name="description" style="resize: none">
-                        </textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="avatar" class="col-form-label">Image </label>
-                        <input type="file" class="dropify" data-default-file="" name="image" id="avatar">
-                    </div>
-                    <div class="mb-3">
-                        <label for="salaire" class="col-form-label">Salaire </label>
-                        <input type="number" id="salaire" class="form-control" name="salaire" min="1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="date-embauche" class="col-form-label">Date naissance </label>
-                        <input type="date" id="date-embauche" class="form-control" name="date-embauche" min="1">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary btn-add">Add</button>
-                    </div>
+                    <form id="modal-add-edit">
+                        <div class="mb-3">
+                            <label for="nom" class="col-form-label">Nom </label>
+                            <input type="text" id="nom" class="form-control" name="nom" min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="prenom" class="col-form-label">Prénom </label>
+                            <input type="text" id="prenom" class="form-control" name="prenom" min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cin" class="col-form-label">CIN </label>
+                            <input type="text" id="cin" class="form-control" name="cin" min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="date-naissance" class="col-form-label">Date naissance </label>
+                            <input type="date" id="date-naissance" class="form-control" name="date-naissance" min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="adress" class="col-form-label">Adresse </label>
+                            <input type="text" id="adress" class="form-control" name="adress" min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="tel" class="col-form-label">Tel </label>
+                            <input type="text" id="tel" class="form-control" name="tel" min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="gender" class="col-form-label">Sexe </label>
+                            <select class="form-control" id="gender" name="gender">
+                                <option value="" hidden selected>Sexe</option>
+                                <option value="Male">Homme</option>
+                                <option value="Female">Femme</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="col-form-label">Description </label>
+                            <textarea class="form-control" id="description" name="description" style="resize: none">
+                            </textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="avatar" class="col-form-label">Image </label>
+                            <input type="file" class="dropify" data-default-file="" name="image" id="avatar">
+                        </div>
+                        <div class="mb-3">
+                            <label for="salaire" class="col-form-label">Salaire </label>
+                            <input type="number" id="salaire" class="form-control" name="salaire" min="1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="date-embauche" class="col-form-label">Date naissance </label>
+                            <input type="date" id="date-embauche" class="form-control" name="date-embauche" min="1">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary btn-add">Add</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -146,6 +150,6 @@
     {{-- end modal add --}}
 @endsection
 @section('custom-scripts')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/api/driver/list-drivers.js') }}"></script>
     <script src="{{ asset('js/api/driver/add-driver.js') }}"></script>
 @endsection
