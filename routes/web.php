@@ -24,6 +24,7 @@ use App\Http\Controllers\DiverController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\InscriptionController;
+use App\Http\Controllers\TransportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -196,4 +197,8 @@ Route::put('/editEvent/update/{id}', [EventController::class, 'update'])->name('
 Route::delete('/deleteEvent/{id}', [EventController::class, 'destroy'])->name('deleteevent');
 Route::get('/edit_event/{id}',[EventController::class,'edit']);
 //End event controller
+//Start transport routes
+Route::view('transport', 'transport.transport');
+Route::resource('transports', TransportController::class);
+//End transport routes
 });
