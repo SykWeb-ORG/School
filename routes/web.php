@@ -47,7 +47,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group([
+    'middleware' => 'auth',
+    'prefix' => 'administration',
+], function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Start Prof Controller
 Route::get('/addProf',[ProfController::class,'create'])->name('createprof');
