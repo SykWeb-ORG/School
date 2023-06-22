@@ -122,7 +122,6 @@ Route::resource('classes', ClassController::class);
 //End Class controller
 //Start Salle controller
 Route::get('/allSalles',[SalleController::class,'showall'])->name('allsalles');
-Route::get('/allSalles',[SalleController::class,'showall'])->name('allsalles');
 Route::post('/storeSalle',[SalleController::class,'store'])->name('storesalle');
 Route::put('/editSalle/update/{id}', [SalleController::class, 'update'])->name('updatesalle');
 Route::delete('/deleteSalle/{id}', [SalleController::class, 'destroy'])->name('deletesalle');
