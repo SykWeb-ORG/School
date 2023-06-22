@@ -121,5 +121,6 @@
     {{-- end modal add --}}
 @endsection
 @section('custom-scripts')
+    <script src="{{ asset('js/api/transport/list-transports.js') }}"></script>
     <script src="{{ asset('js/api/transport/add-transport.js') }}"></script>
 @endsection

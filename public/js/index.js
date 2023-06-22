@@ -83,7 +83,7 @@ function callSwal(fctOutput) {
         reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
-            deleteDriver();
+            fctOutput();
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             swalWithBootstrapButtons.fire(
                 'Annulé',
