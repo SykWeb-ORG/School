@@ -16,7 +16,12 @@ class TransportController extends Controller
      */
     public function index()
     {
-        //
+        $transports = Transport::all();
+        return response()->json(
+            [
+                'transports' => $transports,
+            ]
+        );
     }
 
     /**
@@ -112,7 +117,58 @@ class TransportController extends Controller
      */
     public function update(Request $request, Transport $transport)
     {
-        //
+        $result = null;
+        $status = null;
+        $msg = null;
+        if ($transport->update($request->except([
+            'driver',
+        ]))) {
+            $result = $transport;
+            $status = 200;
+            $msg = __('success');
+        } else {
+            $result = null;
+            $status = 500;
+            $msg = __('failure');
+        }
+        $request->whenFilled('driver', function ($input) use ($transport, &$result, &$status, &$msg) {
+            $driver = Driver::find($input);
+            if ($driver) {
+                if ($driver->transports()->save($transport)) {
+                    $result = $transport;
+                    $status = 200;
+                    $msg = __('success');
+                } else {
+                    $result = null;
+                    $status = 500;
+                    $msg = __('failure');
+                }
+            } else {
+                $result = null;
+                $status = 404;
+                $msg = __('not found');
+            }
+        }, function () use ($transport, &$result, &$status, &$msg) {
+            $transport->driver()->dissociate();
+            if ($transport->save()) {
+                $result = $transport;
+                $status = 200;
+                $msg = __('success');
+            } else {
+                $result = null;
+                $status = 500;
+                $msg = __('failure');
+            }
+        });
+        $transport->refresh();
+        return response()->json(
+            [
+                'result' => $result,
+                'status' => $status,
+                'msg' => $msg,
+            ],
+            $status
+        );
     }
 
     /**
@@ -123,6 +179,22 @@ class TransportController extends Controller
      */
     public function destroy(Transport $transport)
     {
-        //
+        if ($transport->delete()) {
+            $result = $transport;
+            $status = 200;
+            $msg = __('success');
+        } else {
+            $result = null;
+            $status = 500;
+            $msg = __('failure');
+        }
+        return response()->json(
+            [
+                'result' => $result,
+                'status' => $status,
+                'msg' => $msg,
+            ],
+            $status
+        );
     }
 }
